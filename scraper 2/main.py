@@ -124,7 +124,7 @@ def search_dvidshub_api(search_params):
 def asset_dvidshub_api(id):
     params = {
     "id": id,
-    "api_key": "key-65f2f73501a82"
+    "api_key": "Removed for obvious reasons 😄"
     }
     url = "https://api.dvidshub.net/asset"
     response = requests.get(url, params=params, headers=headers )
@@ -168,7 +168,7 @@ def convert_to_human_readable(time_str):
 # Main Logic
 # Example usage:
 search_results_list = []
-api_key = "key-65f2f73501a82"
+api_key = "Removed for obvious reasons 😄"
 print("****************************************************")
 print("PLEASE NOTE: This scraper only works with Dvidshub search URLs. To use it, please perform a search on Dvidshub.net, applying any filters you desire. Once you have completed your search, copy the URL, start the scraper, and paste the URL here.")
 print("****************************************************")
