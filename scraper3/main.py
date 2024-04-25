@@ -176,6 +176,7 @@ def search_met_api(search_params):
     url = "https://collectionapi.metmuseum.org/public/collection/v1/search"
     response = requests.get(url, params=search_params, headers=headers)
     #print(response.json()['objectIDs'])
+    print(f"Total results found {response.json()['total']}. NOTE: Not all these results have images so the scraper might take a little bit more time to filter through them")
     return response.json()['objectIDs']
     """ try:
       return response.json()['results']
@@ -207,7 +208,7 @@ save_dir = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
 os.makedirs(save_dir, exist_ok=True)
 
 j = 0
-for objectID in objectIDs[:10]:
+for objectID in objectIDs:
     asset = asset_met_api(objectID)
     #"{title} ; {artist} ; Medium {medium}  Culture {culture} Publisher {publisher} Date {date}"
     title = None
@@ -274,8 +275,37 @@ for objectID in objectIDs[:10]:
     filtered_values = [val for var, val in zip(variables, values) if val is not None]
 
     # Join the non-null values into a string
-    result_string = ' '.join(filtered_values)
+    image_description = ' '.join(filtered_values)
 
-    print(result_string)
+    print(image_description)
 
+    image_file_path = save_dir + "\\" + image_name
 
+    current_directory = os.getcwd()
+
+    exiftool_file_name = 'exiftool.exe'
+
+    exiftool_file_path = os.path.join(current_directory, exiftool_file_name)
+
+    exiftool_command = [
+        exiftool_file_path,
+        '-m',
+        '-L',
+        f'-Headline={image_description}',
+        f'-Description={image_description}',
+        f'-CreatorWebsite={asset["objectURL"]}',
+        f'{image_file_path}']
+
+    process = subprocess.Popen(args=exiftool_command)
+
+    process.wait()
+
+    un_path = f'{image_file_path}_original'
+
+    if os.path.exists(un_path):
+        os.unlink(un_path)
+    else:
+        pass
+        continue
+print(f"All data has been scraped along with the metadata edited")
+input("Press Anything to close the scraper...")
