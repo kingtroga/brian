@@ -1,5 +1,6 @@
 # Scraper Collection for Brain: README
-<img src="https://github.com/kingtroga/brian/blob/master/3.png" alt="Example Image" style="width: 50%; height: auto;">
+<img src="https://github.com/kingtroga/brian/blob/master/3.png" alt="5 Star Review" style="width: 50%; height: auto;">
+
 ## Overview
 
 This repository contains three web scrapers designed to extract specific data from various sources. These scrapers are tailored for different websites and are intended to be used for data collection and analysis.
